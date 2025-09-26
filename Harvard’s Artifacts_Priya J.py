@@ -56,7 +56,9 @@ def init_db(conn: sqlite3.Connection):
         spectrum TEXT,
         hue TEXT,
         percent REAL,
-        css3 TEXT
+        css3 TEXT,
+        PRIMARY KEY (objectid),        
+        FOREIGN KEY (objectid) REFERENCES artifact_metadata(id)
     )
     """)
     conn.commit()
@@ -208,7 +210,7 @@ PREWRITTEN_QUERIES = {
     "Unique cultures":
         "SELECT DISTINCT culture FROM artifact_metadata WHERE culture IS NOT NULL;",
     "Artifacts from Archaic Period":
-        "SELECT * FROM artifact_metadata WHERE period='Archaic';",
+        "SELECT * FROM artifact_metadata WHERE period='Archaic period';",
     "Titles ordered by accession year":
         "SELECT title, accessionyear FROM artifact_metadata ORDER BY accessionyear DESC;",
     "Artifacts per department":
@@ -403,3 +405,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
